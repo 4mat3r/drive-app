@@ -1,3 +1,5 @@
+import "server-only"
+
 import {int, text, singlestoreTable, date, index, bigint } from "drizzle-orm/singlestore-core"
 
 // export const users = singlestoreTable('users', {

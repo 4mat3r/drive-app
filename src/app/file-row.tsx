@@ -1,7 +1,10 @@
-import type { Folder, File } from "@/lib/mock-data";
+import type { files, folders } from "@/server/db/schema.js";
 import Image from "next/image";
 
-export function FileRow(props: { file: File; handleFileClick: () => void }) {
+export function FileRow(props: { 
+    file: (typeof files.$inferSelect); 
+    handleFileClick: () => void 
+}) {
     const { file, handleFileClick } = props;
 
     return (
@@ -43,7 +46,7 @@ export function FileRow(props: { file: File; handleFileClick: () => void }) {
 }
 
 export function FolderRow(props: {
-    folder: Folder;
+    folder: (typeof folders.$inferSelect);
     handleFolderClick: () => void;
 }) {
     const { folder, handleFolderClick } = props;
