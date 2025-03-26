@@ -10,10 +10,6 @@ export default function DriveContents(props: {
 }) {
     const [currentFolder, setCurrentFolder] = useState<number>(1);
 
-    const handleFileClick = (fileName: string) => {
-        alert(`File clicked: ${fileName}`);
-    };
-
     const getBreadcrumbs = useMemo(() => {
         const breadcrumbs = [];
         let current = props.folders.find((folder) => folder.id === currentFolder);
@@ -63,16 +59,17 @@ export default function DriveContents(props: {
                         color: "#555",
                     }}
                 >
-                    <span
+                    <Link
+                        href="/f/1" 
                         style={{ cursor: "pointer", color: "#007bff" }}
-                        onClick={() => setCurrentFolder(1)}
                     >
                         Home
-                    </span>
+                    </Link>
                     {getBreadcrumbs.map((folder, index) => (
                         <span key={folder.id}>
                             {" / "}
-                            <span
+                            <Link
+                                href={`/f/${folder.id}`}
                                 style={{
                                     cursor: "pointer",
                                     color:
@@ -80,10 +77,9 @@ export default function DriveContents(props: {
                                             ? "#333"
                                             : "#007bff",
                                 }}
-                                onClick={() => setCurrentFolder(folder.id)}
                             >
                                 {folder.name}
-                            </span>
+                            </Link>
                         </span>
                     ))}
                 </div>
@@ -143,7 +139,6 @@ export default function DriveContents(props: {
                         <FileRow
                             key={file.id}
                             file={file}
-                            handleFileClick={() => handleFileClick(file.name)}
                         />
                     ))}
                 </div>

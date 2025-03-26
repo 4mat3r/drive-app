@@ -3,14 +3,12 @@ import Image from "next/image";
 import Link from "next/link";
 
 export function FileRow(props: { 
-    file: (typeof files.$inferSelect); 
-    handleFileClick: () => void 
+    file: (typeof files.$inferSelect)
 }) {
-    const { file, handleFileClick } = props;
+    const { file } = props;
 
     return (
         <div
-            onClick={handleFileClick}
             style={{
                 display: "flex",
                 alignItems: "center",
