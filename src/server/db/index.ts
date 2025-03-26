@@ -12,7 +12,6 @@ const conn = globalForDb.conn ?? createPool({
     user: 'root',
     password: 'root',
     database: 'test',
-    ssl: {},
     maxIdle: 0,
 });
 

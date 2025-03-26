@@ -1,4 +1,4 @@
-import type { Folder, File } from "@/lib/mock-data.js";
+import type { Folder, File } from "@/lib/mock-data";
 import Image from "next/image";
 
 export function FileRow(props: { file: File; handleFileClick: () => void }) {
