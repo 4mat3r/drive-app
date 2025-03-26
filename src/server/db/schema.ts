@@ -1,4 +1,4 @@
-import "server-only"
+//import "server-only"
 
 import {int, text, singlestoreTable, date, index, bigint } from "drizzle-orm/singlestore-core"
 
@@ -14,7 +14,7 @@ import {int, text, singlestoreTable, date, index, bigint } from "drizzle-orm/sin
 //     // Add more columns here
 // })
 
-export const files = singlestoreTable('files', {
+export const files_table = singlestoreTable('files', {
     id: bigint("id",{mode: "number", unsigned: true}).primaryKey().autoincrement(),
     name: text("name").notNull(),
     url: text("url").notNull(),
@@ -27,7 +27,7 @@ export const files = singlestoreTable('files', {
     return [index("parent_index").on(t.parent)]
 })
 
-export const folders = singlestoreTable('folders', {
+export const folders_table = singlestoreTable('folders', {
     id: bigint("id",{mode: "number", unsigned: true}).primaryKey().autoincrement(),
     name: text("name"),
     parent: bigint("parent", {mode: "number", unsigned: true}).notNull(),

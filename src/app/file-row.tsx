@@ -1,9 +1,9 @@
-import type { files, folders } from "@/server/db/schema.js";
+import type { files_table, folders_table } from "@/server/db/schema.js";
 import Image from "next/image";
 import Link from "next/link";
 
 export function FileRow(props: { 
-    file: (typeof files.$inferSelect)
+    file: (typeof files_table.$inferSelect)
 }) {
     const { file } = props;
 
@@ -45,7 +45,7 @@ export function FileRow(props: {
 }
 
 export function FolderRow(props: {
-    folder: (typeof folders.$inferSelect);
+    folder: (typeof folders_table.$inferSelect);
 }) {
     const { folder } = props;
 

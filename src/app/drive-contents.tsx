@@ -1,28 +1,13 @@
 "use client";
-import { useMemo, useState } from "react";
 import { FileRow, FolderRow } from "./file-row";
-import { files, folders } from "@/server/db/schema.js";
+import { files_table, folders_table } from "@/server/db/schema.js";
 import Link from "next/link";
 
 export default function DriveContents(props: {
-    files: typeof files.$inferSelect[];
-    folders: typeof folders.$inferSelect[];
+    files: typeof files_table.$inferSelect[];
+    folders: typeof folders_table.$inferSelect[];
+    parents: typeof folders_table.$inferSelect[];
 }) {
-    const [currentFolder, setCurrentFolder] = useState<number>(1);
-
-    const getBreadcrumbs = useMemo(() => {
-        const breadcrumbs = [];
-        let current = props.folders.find((folder) => folder.id === currentFolder);
-        while (current) {
-            breadcrumbs.unshift(current);
-            current = props.folders.find(
-                (folder) => folder.id === current?.parent
-            );
-        }
-        return breadcrumbs;
-    }, [currentFolder, props.folders]);
-
-
     return (
         <div
             style={{
@@ -65,7 +50,7 @@ export default function DriveContents(props: {
                     >
                         Home
                     </Link>
-                    {getBreadcrumbs.map((folder, index) => (
+                    {props.parents.map((folder, index) => (
                         <span key={folder.id}>
                             {" / "}
                             <Link
@@ -73,7 +58,7 @@ export default function DriveContents(props: {
                                 style={{
                                     cursor: "pointer",
                                     color:
-                                        index === getBreadcrumbs.length - 1
+                                        index === props.parents.length - 1
                                             ? "#333"
                                             : "#007bff",
                                 }}
@@ -83,29 +68,6 @@ export default function DriveContents(props: {
                         </span>
                     ))}
                 </div>
-                {currentFolder !== 1 && (
-                    <Link 
-                        href={`/f/${currentFolder}`}
-                        style={{
-                            marginBottom: "16px",
-                            padding: "8px 16px",
-                            backgroundColor: "#007bff",
-                            color: "#fff",
-                            border: "none",
-                            borderRadius: "4px",
-                            cursor: "pointer",
-                            fontSize: "14px",
-                        }}
-                        onMouseEnter={(e) =>
-                            (e.currentTarget.style.backgroundColor = "#0056b3")
-                        }
-                        onMouseLeave={(e) =>
-                            (e.currentTarget.style.backgroundColor = "#007bff")
-                        }
-                    >
-                        Back
-                    </Link>
-                )}
                 <div style={{ marginBottom: "24px" }}>
                     <h2
                         style={{
