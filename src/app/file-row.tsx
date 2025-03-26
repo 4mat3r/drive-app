@@ -1,5 +1,6 @@
 import type { files, folders } from "@/server/db/schema.js";
 import Image from "next/image";
+import Link from "next/link";
 
 export function FileRow(props: { 
     file: (typeof files.$inferSelect); 
@@ -47,13 +48,12 @@ export function FileRow(props: {
 
 export function FolderRow(props: {
     folder: (typeof folders.$inferSelect);
-    handleFolderClick: () => void;
 }) {
-    const { folder, handleFolderClick } = props;
+    const { folder } = props;
 
     return (
-        <div
-            onClick={handleFolderClick}
+        <Link
+            href={`/f/${folder.id}`}
             style={{
                 display: "flex",
                 alignItems: "center",
@@ -86,6 +86,6 @@ export function FolderRow(props: {
                         : "Unknown"}
                 </div>
             </div>
-        </div>
+        </Link>
     );
 }

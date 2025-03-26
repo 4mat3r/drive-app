@@ -7,11 +7,11 @@ const globalForDb = globalThis as unknown as {
 };
 
 const conn = globalForDb.conn ?? createPool({
-    host: 'localhost',
-    port: 3306,
-    user: 'root',
-    password: 'root',
-    database: 'test',
+    host: env.DB_HOST!,
+    port: parseInt(env.DB_PORT!),
+    user: env.DB_USER!,
+    password: env.DB_PASSWORD!,
+    database: env.DB_NAME!,
     maxIdle: 0,
 });
 

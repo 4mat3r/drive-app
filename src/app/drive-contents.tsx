@@ -2,6 +2,7 @@
 import { useMemo, useState } from "react";
 import { FileRow, FolderRow } from "./file-row";
 import { files, folders } from "@/server/db/schema.js";
+import Link from "next/link";
 
 export default function DriveContents(props: {
     files: typeof files.$inferSelect[];
@@ -9,21 +10,8 @@ export default function DriveContents(props: {
 }) {
     const [currentFolder, setCurrentFolder] = useState<number>(1);
 
-    const handleFolderClick = (folderId: number) => {
-        setCurrentFolder(folderId);
-    };
-
     const handleFileClick = (fileName: string) => {
         alert(`File clicked: ${fileName}`);
-    };
-
-    const handleBackClick = () => {
-        const parentFolder = props.folders.find(
-            (folder) => folder.id === currentFolder
-        )?.parent;
-        if (parentFolder) {
-            setCurrentFolder(parentFolder);
-        }
     };
 
     const getBreadcrumbs = useMemo(() => {
@@ -100,8 +88,8 @@ export default function DriveContents(props: {
                     ))}
                 </div>
                 {currentFolder !== 1 && (
-                    <button
-                        onClick={handleBackClick}
+                    <Link 
+                        href={`/f/${currentFolder}`}
                         style={{
                             marginBottom: "16px",
                             padding: "8px 16px",
@@ -120,7 +108,7 @@ export default function DriveContents(props: {
                         }
                     >
                         Back
-                    </button>
+                    </Link>
                 )}
                 <div style={{ marginBottom: "24px" }}>
                     <h2
@@ -137,9 +125,6 @@ export default function DriveContents(props: {
                         <FolderRow
                             key={folder.id}
                             folder={folder}
-                            handleFolderClick={() =>
-                                handleFolderClick(folder.id)
-                            }
                         />
                     ))}
                 </div>
