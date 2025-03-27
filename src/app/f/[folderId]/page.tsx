@@ -1,9 +1,12 @@
+import { stackServerApp } from "@/stack";
 import DriveContents from "../../drive-contents";
 import { QUERIES } from "@/server/db/queries";
 
 export default async function GoogleDriveClone(props: {
     params: Promise<{ folderId: string }>;
 }) {
+    await stackServerApp.getUser({ or: "redirect" });
+
     const params = await props.params;
     const parsedFolderId = parseInt(params.folderId);
     if (isNaN(parsedFolderId)) {

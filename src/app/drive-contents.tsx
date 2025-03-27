@@ -1,7 +1,8 @@
 "use client";
 import { FileRow, FolderRow } from "./file-row";
-import { files_table, folders_table } from "@/server/db/schema.js";
+import { files_table, folders_table } from "@/server/db/schema";
 import Link from "next/link";
+import { UserButton } from '@stackframe/stack';
 
 export default function DriveContents(props: {
     files: typeof files_table.$inferSelect[];
@@ -17,6 +18,15 @@ export default function DriveContents(props: {
                 minHeight: "100vh",
             }}
         >
+             <UserButton
+                showUserInfo={true}
+                colorModeToggle={() => { console.log("color mode toggle clicked") }}
+                extraItems={[{
+                text: 'Custom Action',
+                icon: <span>🔧</span>,
+                onClick: () => console.log('Custom action clicked')
+                }]}
+            />
             <div
                 style={{
                     maxWidth: "800px",
